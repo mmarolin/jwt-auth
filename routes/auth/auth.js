@@ -66,7 +66,8 @@ router.post("/login", async (req, res) => {
     const { err } = await loginSchema.validateAsync(req.body);
     if (err) return res.status(400).send(err.details[0].message);
     else {
-      res.send("Success!");
+      const token = jwt.sign({ _id: user._id }, process.env.TOKEN_SECRET);
+      res.header("auth-token", token).send(token);
     }
   } catch (err) {
     res.status(500).send(err);

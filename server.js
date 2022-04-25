@@ -4,6 +4,7 @@ const dotenv = require("dotenv").config({ path: "./.env" });
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth/auth");
+const authDashboard = require("./routes/auth/authDashboard");
 const app = express();
 let PORT = process.env.PORT || 8000;
 
@@ -22,6 +23,7 @@ mongoose.connect(
 app.use(express.json(), cors());
 
 app.use("/api/users", authRoute);
+app.use("/api/dashboard", authDashboard);
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}... `);
