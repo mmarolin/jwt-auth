@@ -1,16 +1,6 @@
-const express = require("express");
-const cors = require("cors");
-const dotenv = require("dotenv").config({ path: "./.env" });
-const jwt = require("jsonwebtoken");
+const app = require("./app");
+const PORT = process.env.PORT || 8000;
 const mongoose = require("mongoose");
-const authRoute = require("./routes/auth/auth");
-const authDashboard = require("./routes/auth/authDashboard");
-const app = express();
-let PORT = process.env.PORT || 8000;
-
-app.get("/", (req, res) => {
-  res.send("Halo");
-});
 
 mongoose.connect(
   process.env.DB_CONNECT,
@@ -20,11 +10,6 @@ mongoose.connect(
   }
 );
 
-app.use(express.json(), cors());
-
-app.use("/api/users", authRoute);
-app.use("/api/dashboard", authDashboard);
-
 app.listen(PORT, () => {
-  console.log(`Listening to port ${PORT}... `);
+  console.log(`Server listening on port ${PORT}`);
 });
